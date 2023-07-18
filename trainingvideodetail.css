@@ -1,0 +1,122 @@
+ .training-list.active {
+  background-color: #707070 !important;
+  color:white !important;
+}
+
+/*
+.training-list:hover {
+  background-color: #303030 !important;
+  color:white !important;
+}
+
+.list-group-item-light .training-list {
+  background-color: #303030 !important;
+  color:white !important;
+} */
+
+.accordion-padding{
+  padding-bottom: 20px;
+}
+
+.black-text-sixteen {
+  font-size: 16px;
+  color: black;
+}
+
+.training-video-card{
+  width: 220px;
+  height: 310px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+
+.training-video-buttongroup{
+  align-self: self-end;
+  width: 100%;
+  filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+  text-align: center;
+  padding: mx-5;
+}
+
+.training-video-search{
+  padding-left: 20%;
+  padding-right: 28%;
+  padding-top: 1%;
+}
+
+.training-video-image {
+  height: 150px;
+  padding: 5px;
+}
+
+.text-twelve {
+  font-size: 12px;
+}
+
+.video-preview-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table-of-contents-background {
+  background-color: #ddd;
+  padding: 20px;
+  height: 100vh;
+  width: 50vw;
+}
+
+.training-video-player {
+  padding: 5px;
+  width: auto;
+}
+
+
+iframe {
+  width: 100%;
+  height: 55vh;
+  border: none;
+  padding: 0 !important;
+  display: block;
+  line-height: 0;
+  margin: 0 !important;
+  overflow: hidden;
+}
+
+.notes-textbox-size {
+  height: 100px;
+  width: 61%;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  outline: 1px;
+}
+
+.notes-textbox-padding {
+  padding: 20px;
+}
+
+.video-card {
+  border: 1px solid lightgrey;
+}
+
+.vid-title {
+  height: 80px;
+  font-weight: bold;
+  color: rgb(70, 65, 65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vid-title:hover::before {
+  content: "play video";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 14px;
+  opacity: 1;
+}
