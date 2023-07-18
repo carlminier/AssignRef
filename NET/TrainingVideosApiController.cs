@@ -56,6 +56,37 @@ namespace Sabio.Web.Api.Controllers
             return StatusCode(statCode, res);
         }
 
+        [HttpGet("conferenceId/{id:int}")]
+        public ActionResult<ItemsResponse<VideoMain>> GetCategories_SelectAllVideos(int id)
+        {
+            int statCode = 200;
+            BaseResponse res = null;
+
+            try
+            {
+                List<VideoMain> videosList = _service.GetCategories_SelectAllVideos(id);
+
+                if (videosList == null)
+                {
+                    statCode = 404;
+                    res = new ErrorResponse("Application Resource is not found!");
+                }
+                else
+                {
+                    res = new ItemsResponse<VideoMain> { Items = videosList };
+                }
+            }
+
+            catch (Exception ex)
+            {
+                statCode = 500;
+                res = new ErrorResponse(ex.Message);
+                base.Logger.LogError(ex.ToString());
+            }
+
+            return StatusCode(statCode, res);
+        }
+
         [HttpGet]
         public ActionResult<ItemsResponse<TrainingVideo>> GetAll()
         {

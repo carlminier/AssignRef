@@ -18,16 +18,20 @@ using Sabio.Services.Interfaces;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Sabio.Models.Domain.Conferences;
 using Sabio.Models.Domain.Venues;
+using Newtonsoft.Json;
+using Sabio.Models.Domain.Videos;
 
 namespace Sabio.Services
 {
     public class TrainingVideoService : ITrainingVideoService
     {
         IDataProvider _data = null;
+        ILookUpService _lookUpService = null;
 
-        public TrainingVideoService(IDataProvider data)
+        public TrainingVideoService(IDataProvider data, ILookUpService lookUpService)
         {
             _data = data;
+            _lookUpService = lookUpService;
         }
 
         public int Add(TrainingVideoAddRequest model, int userId)
@@ -98,6 +102,29 @@ namespace Sabio.Services
                 if (videosList == null) videosList = new List<TrainingVideo>();
 
                 videosList.Add(trainVid);
+            });
+
+            return videosList;
+        }
+
+        public List<VideoMain> GetCategories_SelectAllVideos(int conferenceId)
+        {
+            List<VideoMain> videosList = null;
+
+            string procName = "[dbo].[TrainingVideosCategories_SelectAllVideos]";
+
+            _data.ExecuteCmd(procName, delegate (SqlParameterCollection paramCol)
+            {
+                paramCol.AddWithValue("@ConferenceId", conferenceId);
+            }, singleRecordMapper: delegate (IDataReader reader, short set)
+            {
+                int startingIndex = 0;
+
+                VideoMain videoMain = VideoMainMapper(reader, ref startingIndex);
+
+                if (videosList == null) videosList = new List<VideoMain>();
+
+                videosList.Add(videoMain);
             });
 
             return videosList;
@@ -363,6 +390,20 @@ namespace Sabio.Services
             trainingVideo.ModifiedBy = reader.GetSafeInt32(startingIndex++);
 
             return trainingVideo;
+        }
+
+        public VideoMain VideoMainMapper(IDataReader reader, ref int startingIndex)
+        {
+            VideoMain videoMain = new VideoMain();
+
+            videoMain.Category = _lookUpService.MapSingleLookUp(reader, ref startingIndex);
+
+            string json = reader.GetString(startingIndex++);
+            if(!string.IsNullOrEmpty(json))
+            {
+                videoMain.Videos = JsonConvert.DeserializeObject<List<Video>>(json);
+            }
+            return videoMain;
         }
 
         private static void AddCommonParams(TrainingVideoAddRequest model, SqlParameterCollection col)
