@@ -2,9 +2,9 @@
 
 ### AssignRef is an innovative platform for connecting sporting events, referees, and users, simplifying the process through seamless referee hiring, payment facilitation, skills verification, foul ticket submission, video training, and game highlights, with advanced search capabilities for games, officials, crews, teams, and leagues. 
 
-⁘ I led the development of the dynamic video component using React, transforming the way videos are played and selected across diverse categories. Users now enjoy a seamless experience, thanks to the efficient filtering techniques and component-based architecture I implemented. By ensuring easy access to desired videos, I delivered a smooth and intuitive user interface.
+⁘ I led the development of the dynamic video component using React, transforming the way videos are played and selected across diverse categories. Users now enjoy a seamless experience, thanks to the efficient filtering techniques and component-based architecture I implemented. By ensuring a smooth and intuitive user interface, I provided easy access to desired videos.
 
-⁘ I used my expertise in both front-end and back-end development, leveraging technologies such as C#, ASP.NET, ADO.NET, and .NET Core. Implemented RESTful APIs and efficiently routed requests to multiple data points, resulting in optimal record retrieval, seamless integration, and robust data handling within the MVC framework. Utilized tables and SQL stored procedures to optimize database operations, enhancing query execution, and performance, and facilitating logical organization and record retrieval.
+⁘ I used my expertise in both front-end and back-end development, leveraging technologies such as C#, ASP.NET, ADO.NET, and .NET Core. Implemented RESTful APIs and efficiently routed requests to multiple data points, resulting in optimal record retrieval, seamless integration, and robust data handling within the MVC framework. I utilized tables and SQL stored procedures to optimize database operations, enhancing query execution, and performance, and facilitated logical organization and record retrieval.
 
 ● Developed and structured the view videos page functionality from front-end to back-end.
 
