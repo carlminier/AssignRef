@@ -1,51 +1,60 @@
 import React from "react";
-import { Card, Button, Col } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import PropTypes from 'prop-types';
 import debug from "sabio-debug";
 const _logger = debug.extend("TrainingVideoCard");
 
-function TrainingVideoCard({ card, deleteVideo }) {
-
-  _logger("CARDPROPS", card)
+function TrainingVideoCard({ card, deleteVideo, currentUser }) {
 
   const onVideoDelete = () => {
     _logger("delete clicked", card)
     deleteVideo(card.id)
   }
 
+  let sliceTitle = () => {
+    let splitString = card.title.split("")
+    if (splitString.length > 23) {
+      card.title = card.title.slice(0, 23) + "..."
+    }
+  }
+
   return (
     <>
-      <Col className="p-5">
-        <Card
-          className="training-video-card"
-        >
-          <Card.Img
-            className="training-video-image"
-            variant="top"
-            src={card.imageUrl}
-            alt="First image" />
-          <Card.Body
-            className="p-4">
-            <Button
-              id={card.id}
-              size="sm"
-              variant="outline-danger"
-              onClick={onVideoDelete}
-            >
-              Delete
-            </Button>
-            <Card.Title>
-              {card.title}
-            </Card.Title>
-            <Card.Text>
-              {card.conference?.code}
-            </Card.Text>
-            <Card.Text>
-              {card.season.name}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
+      <div className="col m-1">
+        <div className="row">
+          <Card
+            className="training-video-card"
+          >
+            <Card.Img
+              className="training-video-image"
+              variant="top"
+              src={card.imageUrl}
+              alt="First image" />
+            <Card.Body
+              className="p-2">
+              {currentUser.roles[0] === ("Admin" || "Assigner") ? <Button
+                id={card.id}
+                size="sm"
+                variant="outline-danger"
+                onClick={onVideoDelete}
+              >
+                Delete
+              </Button> : null}
+              <Card.Title
+                onLoad={sliceTitle()}>
+                {card.title}
+              </Card.Title>
+              <Card.Text>
+                {card.conference?.code}
+              </Card.Text>
+              <Card.Text>
+                {card.season.name}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+
     </>
   )
 }
@@ -58,10 +67,11 @@ TrainingVideoCard.propTypes = {
     conferenceId: PropTypes.number.isRequired,
     avatarUrl: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    roles: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   roles: PropTypes.shape({
     id: PropTypes.number.isRequired
-  }).isRequired,
+  }),
   card: PropTypes.shape({
     id: PropTypes.number.isRequired,
     category: PropTypes.shape({
@@ -82,9 +92,9 @@ TrainingVideoCard.propTypes = {
     title: PropTypes.string.isRequired,
     subject: PropTypes.string.isRequired,
     mediaUrl: PropTypes.string.isRequired,
-    isPublished: PropTypes.bit,
+    isPublished: PropTypes.bool,
     imageUrl: PropTypes.string.isRequired,
-    isDeleted: PropTypes.bit
+    isDeleted: PropTypes.bool
   }),
   deleteVideo: PropTypes.func,
 }

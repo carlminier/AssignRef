@@ -24,7 +24,8 @@
 }
 
 .training-video-card{
-  width: 250px;
+  width: 220px;
+  height: 310px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
 }
@@ -38,14 +39,14 @@
 }
 
 .training-video-search{
-  padding-left: 28%;
+  padding-left: 20%;
   padding-right: 28%;
   padding-top: 1%;
 }
 
 .training-video-image {
-  height: 190px;
-  padding: 10px;
+  height: 150px;
+  padding: 5px;
 }
 
 .text-twelve {

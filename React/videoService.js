@@ -32,6 +32,17 @@ videoService.getVideoByConference = (pageIndex, pageSize,id) => {
   return axios(config).then(onGlobalSuccess).catch(onGlobalError);
 };
 
+videoService.getVideoCategorySelectAllVideos = (id) => {
+  const config = {
+    method: "GET",
+    url: `${videoService.endpoint}/conferenceId/${id}`,
+    withCredentials: true,
+    crossDomain: true,
+    headers: { "Content-Type": "application/json" },
+  };
+  return axios(config).then(onGlobalSuccess).catch(onGlobalError);
+};
+
 videoService.getVideoBySeason = (pageIndex, pageSize,id) => {
   const config = {
     method: "GET",

@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import {
-  Col, Row, Accordion, ListGroup, Form,
-  // OverlayTrigger, Popover
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Col, Row, Accordion, ListGroup, Form } from "react-bootstrap";
 import PropTypes from 'prop-types';
 import debug from "sabio-debug";
 import toastr from "toastr";
@@ -35,7 +32,8 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     },
     categories: {
       pageIndex: 1,
-      pageSize: 50
+      pageSize: 50,
+      array: []
     },
     videoArray: [],
     filteredVideos: [],
@@ -46,17 +44,36 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     searchQuery: ""
   });
 
-  //create a separate state for categories with pagesize of 100
-
   const [seasons, setSeasons] = useState({
     data: [],
     comps: [],
   })
 
   useEffect(() => {
+    videoService
+      .getVideoCategorySelectAllVideos(currentUser.conferenceId)
+      .then(onGetVideoCategorySuccess)
+      .catch(onGetVideoCategoryError)
+  }, [currentUser.conferenceId, videoData.categories])
+
+  const onGetVideoCategorySuccess = (response) => {
+    _logger("Video Category Success", response)
+    const categories = response.items;
+
+    setVideoData((prevState) => {
+      const vd = { ...prevState }
+      vd.categories.array = categories
+      return vd
+    })
+  }
+  const onGetVideoCategoryError = (error) => {
+    _logger("Video Category Error", error)
+  }
+
+  useEffect(() => {
     if (!videoData.searchQuery) {
       videoService
-        .getVideoByConference(videoData.categories.pageIndex - 1, videoData.categories.pageSize, currentUser.conferenceId)
+        .getVideoByConference(videoData.pageIndex - 1, videoData.pageSize, currentUser.conferenceId)
         .then(onGetVideosSuccess)
         .catch(onGetVideosError)
     } else {
@@ -79,34 +96,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
       const vd = { ...prevState };
       vd.videoArray = vidArray;
 
-      // Step 1 
-      const categories = [];
-      const filteredArr = [];
-
-      vd.videoArray.forEach((video, index) => {
-
-        if (!categories.includes(video.category.id)) {
-          categories.push(video.category.id)
-          filteredArr[index] = [];
-          filteredArr[index].push(video);
-        }
-        else {
-          if (filteredArr.length >= 0) {
-            let idx = filteredArr?.findIndex(vid => {
-              // debugger;
-              if (vid !== undefined) {
-                // debugger;
-                vid[0]?.category.id === video.category.id
-              }
-            })
-            filteredArr[idx]?.push(video)
-          }
-        }
-      })
-
-      vd.filteredVideos = filteredArr;
       vd.videoComponents = vidArray.map(mapVideos);
-
       if (vidArray.length > 0) {
         vd.currentVideo = vidArray[0].mediaUrl;
         vd.videoArray[0].isPlaying = true;
@@ -116,22 +106,24 @@ const TrainingVideoHomePage = ({ currentUser }) => {
       vd.videoList = vidArray.map(mapVideoList);
       vd.totalCount = response.item.totalCount;
       vd.totalPages = response.item.totalPages;
-
       _logger("GETvids", vd)
       return vd;
     });
   };
 
-  const onGetVideosError = (response) => {
-    _logger("error is firing", response);
+  const onGetVideosError = (error) => {
+    _logger("error is firing", error);
     toastr.error(error.message)
   };
 
   const handleItemClick = (vid, id) => {
+
     setVideoData((prev) => {
       const dt = { ...prev };
       dt.currentVideo = vid;
       const vdArr = [...dt.videoArray];
+
+      vdArr.indexOf(vid, id)
 
       vdArr.forEach((vd) => {
         if (vd.id === id) {
@@ -146,26 +138,26 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     });
   };
 
-  const mapCategory = useCallback((aCategory) => {
+  const mapCategory = (aCategory) => {
     return (
       <Accordion.Item
-        eventKey={aCategory[0]?.category?.id}
-        key={aCategory[0]?.category?.id}>
+        eventKey={aCategory?.category?.id}
+        key={aCategory?.category?.id}>
         <Accordion.Header >
-          {aCategory[0]?.category?.name}
+          {aCategory?.category?.name}
         </Accordion.Header>
         <Accordion.Body>
           <ListGroup>
-            {aCategory?.map(mapVideos)}
+            {aCategory?.videos?.map(mapVideos)}
           </ListGroup>
         </Accordion.Body>
       </Accordion.Item >
     )
-  }, [])
+  }
 
-  const renderCategories = useCallback(() => {
-    return videoData.filteredVideos?.map(mapCategory)
-  }, [videoData.videoComponents, currentUser.conferenceId])
+  const renderCategories = () => {
+    return videoData.categories?.array?.map(mapCategory)
+  }
 
   useEffect(() => {
     _logger("I'm firing first")
@@ -188,8 +180,6 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     toastr.error(error.message)
   }
 
-  //When a video is selected, render video onto paged
-
   const onSeasonClick = (e) => {
     const seasId = e.target.value
     const confId = currentUser.conferenceId
@@ -208,8 +198,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     setVideoData((prevState) => {
       const vd = { ...prevState }
       vd.videoArray = seasonVids
-      vd.videoComponents = seasonVids.map(mapVideos)
-      _logger("SEASONVIDEOS", vd)
+      vd.categories.array = seasonVids.map(mapSeasons)
       return vd
     })
   }
@@ -218,11 +207,11 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     toastr.error(error.message)
   }
 
-  const renderSeasons = useCallback(() => {
+  const renderSeasons = () => {
     return seasons.data.map(mapSeasons)
-  }, [seasons.data, videoData.videoComponents, currentUser.conferenceId])
+  }
 
-  const mapSeasons = useCallback((aSeason) => {
+  const mapSeasons = (aSeason) => {
     return (
       <option
         value={aSeason.id}
@@ -230,7 +219,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
         {aSeason.name}
       </option>
     )
-  }, [])
+  }
 
   const onPageChange = (page) => {
     _logger("PAGE", page)
@@ -302,6 +291,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
         key={aCard.id}
         card={aCard}
         deleteVideo={handleDeleteVideo}
+        currentUser={currentUser}
       />
     )
   }
@@ -326,19 +316,6 @@ const TrainingVideoHomePage = ({ currentUser }) => {
         <Col md={4} lg={3}>
           <Form className="mb-3">
             <label className="m-1 h5">Seasons</label>
-            {/* <OverlayTrigger
-              trigger="focus"
-              key={1}
-              placement="right"
-              overlay={
-                <Popover id={`popover-positioned`}>
-                  <Popover.Header as="h3">{`Uh-Oh`}</Popover.Header>
-                  <Popover.Body>
-                    <strong>Holy guacamole!</strong> No videos to show
-                  </Popover.Body>
-                </Popover>
-              }
-            > */}
             <Form.Select
               className="align-self-end"
               size="sm"
@@ -346,7 +323,6 @@ const TrainingVideoHomePage = ({ currentUser }) => {
               onChange={onSeasonClick}>
               {renderSeasons()}
             </Form.Select>
-            {/* </OverlayTrigger> */}
             <hr />
             <label className="m-1 h5">Categories</label>
             <Accordion defaultActiveKey={1}>
@@ -366,14 +342,15 @@ const TrainingVideoHomePage = ({ currentUser }) => {
             onSubmit={onVidSearch}
           >
             {({ resetForm }) => (
-              <FormikForm className="training-video-search">
+              <FormikForm className="training-video-search ">
                 <Row>
                   <div className="input-group mb-3">
                     <Field
                       type="text"
                       name="searchQuery"
                       placeholder="Search"
-                      className="form-control" />
+                      className="form-control"
+                    />
                     <button
                       className="btn btn-outline-secondary ms-1"
                       type="submit">
@@ -387,7 +364,6 @@ const TrainingVideoHomePage = ({ currentUser }) => {
                       Clear
                     </button>
                   </div>
-
                 </Row>
               </FormikForm>
             )}
@@ -420,7 +396,8 @@ TrainingVideoHomePage.propTypes = {
     email: PropTypes.string.isRequired,
     conferenceId: PropTypes.number.isRequired,
     avatarUrl: PropTypes.string.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired
+    isLoggedIn: PropTypes.bool.isRequired,
+    roles: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
 
 }
