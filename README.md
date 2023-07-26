@@ -1,6 +1,8 @@
 # AssignRef
 
-### AssignRef is an innovative platform for connecting sporting events, referees, and users, simplifying the process through seamless referee hiring, payment facilitation, skills verification, foul ticket submission, video training, and game highlights, with advanced search capabilities for games, officials, crews, teams, and leagues. 
+### AssignRef is an innovative platform with everything you need in sports league 
+management software, simplifying the process of connecting sporting events, referees, 
+and users. 
 
 ⁘ I led the development of the dynamic video component using React, transforming the way videos are played and selected across diverse categories. Users now enjoy a seamless experience, thanks to the efficient filtering techniques and component-based architecture I implemented. By ensuring a smooth and intuitive user interface, I provided easy access to desired videos.
 
