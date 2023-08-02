@@ -10,6 +10,16 @@ This repo is a collection of my work from the Los Angeles-based startup, AssignR
 
 ⁘ I used my expertise in both front-end and back-end development, leveraging technologies such as C#, ASP.NET, ADO.NET, and .NET Core. Implemented RESTful APIs and efficiently routed requests to multiple data points, resulting in optimal record retrieval, seamless integration, and robust data handling within the MVC framework. I utilized tables and SQL stored procedures to optimize database operations, enhancing query execution, and performance, and facilitated logical organization and record retrieval.
 
+
+ <details>
+  <summary>
+    <h2>
+      <strong>
+        Details of Work Completed:
+      </strong>
+    </h2>
+  </summary>
+   
 ● Developed and structured the view videos page functionality from front-end to back-end.
 
 ● Created the necessary procedures in SQL utilizing joins, foreign keys, and pagination.
@@ -29,3 +39,4 @@ This repo is a collection of my work from the Los Angeles-based startup, AssignR
 ● Performed commits and pull requests to secure consistency and quality.
 
 ● Participated in daily stand-ups, code reviews, and code talks with team members to ensure cohesive implementation of code.
+ </details>
