@@ -26,6 +26,8 @@ This repo is a collection of my work from the Los Angeles-based startup, AssignR
 
 https://github.com/carlminier/AssignRef/assets/122194890/ca13444e-f4f7-495f-bd97-c1f130644da5
 
+---
+
  <details>
   <summary>
     <h2>
