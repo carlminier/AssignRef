@@ -24,7 +24,7 @@ This repo is a collection of my work from the Los Angeles-based startup, AssignR
 
 ⁘ I led the development of the dynamic video component using React.js, transforming the way videos are played and selected across diverse categories. Users now enjoy a seamless experience, thanks to the efficient filtering techniques and component-based architecture I implemented. By ensuring a smooth and intuitive user interface, I provided easy access to desired videos.
 
-https://github.com/carlminier/AssignRef/assets/122194890/cfb45e85-09a0-4d71-8c72-cd6d4f11b0c7
+https://github.com/carlminier/AssignRef/assets/122194890/ca13444e-f4f7-495f-bd97-c1f130644da5
 
  <details>
   <summary>
