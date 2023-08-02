@@ -1,4 +1,4 @@
-# AssignRef
+# AssignRef Features
 
 ### AssignRef is an innovative platform with everything you need in sports league management software, simplifying the process of connecting sporting events, referees, and users. 
 
