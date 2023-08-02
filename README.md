@@ -1,3 +1,8 @@
+<div align="center">
+ 
+![AssignRef Logo](https://github.com/carlminier/AssignRef/assets/122194890/e76a456f-fac8-4bb8-958e-9312d898214a)
+</div>
+
 # AssignRef Features
 
 This repo is a collection of my work from the Los Angeles-based startup, AssignRef. The repo is organized in sub-folders by feature.
