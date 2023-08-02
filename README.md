@@ -1,6 +1,8 @@
 # AssignRef Features
 
-#### This repo is a collection of my work from the Los Angeles based startup, Hasty. The repo is organized in sub-folders by feature.
+This repo is a collection of my work from the Los Angeles-based startup, AssignRef. The repo is organized in sub-folders by feature.
+
+---
 
 ### AssignRef is an innovative platform with everything you need in sports league management software, simplifying the process of connecting sporting events, referees, and users. 
 
