@@ -1,13 +1,15 @@
 <div align="center">
  
 ![AssignRef Logo](https://github.com/carlminier/AssignRef/assets/122194890/e76a456f-fac8-4bb8-958e-9312d898214a)
-</div>
+
 
 ---
 
 ### AssignRef is an innovative platform with everything you need in sports league management software, simplifying the process of connecting sporting events, referees, and users. 
 
 ---
+
+</div>
 
 # AssignRef Features
 
