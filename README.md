@@ -17,7 +17,7 @@
 
 # AssignRef Features
 
-This repo is a collection of my work from the Los Angeles-based startup, AssignRef. The repo is organized in sub-folders by feature.
+This repo is a collection of my work from a Mexican-based startup, AssignRef. The repo is organized in sub-folders by feature.
 
 ### Feature #1 - Files Backend
 ⁘ I used my expertise in back-end development, leveraging technologies such as C#, ASP.NET, ADO.NET, and .NET Core. I Constructed RESTful API endpoints and routing requests to multiple data points using .NET Core, ensuring efficient record retrieval, seamless integration, and robust data handling. I designed tables and stored procedures using SQL/T-SQL, implementing joins, clauses, and JSON objects to optimize database operations for record retrieval. I completed the code and tested the controllers using the Postman client.
