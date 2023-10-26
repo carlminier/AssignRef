@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Accordion, ListGroup, Form } from "react-bootstrap";
 import PropTypes from 'prop-types';
-import debug from "sabio-debug";
 import toastr from "toastr";
 import Pagination from 'rc-pagination';
 import locale from "rc-pagination/lib/locale/en_US";
@@ -17,8 +16,6 @@ import seasonService from "services/seasonService";
 //Styles
 import "./trainingvideodetail.css";
 import { Formik, Form as FormikForm, Field } from "formik";
-
-const _logger = debug.extend("TrainingVideoDetail");
 
 const TrainingVideoHomePage = ({ currentUser }) => {
   const [videoData, setVideoData] = useState({
@@ -57,7 +54,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   }, [currentUser.conferenceId, videoData.categories])
 
   const onGetVideoCategorySuccess = (response) => {
-    _logger("Video Category Success", response)
+    console.log("Video Category Success", response)
     const categories = response.items;
 
     setVideoData((prevState) => {
@@ -67,7 +64,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     })
   }
   const onGetVideoCategoryError = (error) => {
-    _logger("Video Category Error", error)
+    console.log("Video Category Error", error)
   }
 
   useEffect(() => {
@@ -85,7 +82,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   }, [videoData.pageIndex, videoData.searchQuery, currentUser.conferenceId])
 
   const onGetVideosSuccess = (response) => {
-    _logger("Get Videos Success", response)
+    console.log("Get Videos Success", response)
     let vidArray = response.item.pagedItems;
 
     vidArray.forEach((video) => {
@@ -106,13 +103,13 @@ const TrainingVideoHomePage = ({ currentUser }) => {
       vd.videoList = vidArray.map(mapVideoList);
       vd.totalCount = response.item.totalCount;
       vd.totalPages = response.item.totalPages;
-      _logger("GETvids", vd)
+      console.log("GETvids", vd)
       return vd;
     });
   };
 
   const onGetVideosError = (error) => {
-    _logger("error is firing", error);
+    console.log("error is firing", error);
     toastr.error(error.message)
   };
 
@@ -160,7 +157,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   }
 
   useEffect(() => {
-    _logger("I'm firing first")
+    console.log("I'm firing first")
     seasonService
       .getByConferenceId(currentUser.conferenceId)
       .then(onGetConfSuccess)
@@ -168,7 +165,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   }, [])
 
   const onGetConfSuccess = (response) => {
-    _logger("Get Conference Success", response)
+    console.log("Get Conference Success", response)
     setSeasons((prevState) => {
       const nd = { ...prevState };
       nd.data = response.items;
@@ -176,15 +173,15 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     })
   }
   const onGetConfError = (error) => {
-    _logger("Get Conference Error", error)
+    console.log("Get Conference Error", error)
     toastr.error(error.message)
   }
 
   const onSeasonClick = (e) => {
     const seasId = e.target.value
     const confId = currentUser.conferenceId
-    _logger("SeasonId", (e, seasId))
-    _logger("CURRENT Conference", (currentUser, currentUser.conferenceId))
+    console.log("SeasonId", (e, seasId))
+    console.log("CURRENT Conference", (currentUser, currentUser.conferenceId))
 
     videoService
       .getVideoByConferenceSeason(videoData.pageIndex - 1, videoData.pageSize, confId, seasId)
@@ -192,7 +189,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
       .catch(onGetVidByIdError)
   }
   const onGetVidByIdSuccess = (response) => {
-    _logger("VidById Success", response)
+    console.log("VidById Success", response)
     const seasonVids = response.item.pagedItems
 
     setVideoData((prevState) => {
@@ -203,7 +200,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     })
   }
   const onGetVidByIdError = (error) => {
-    _logger("VidById Error", error)
+    console.log("VidById Error", error)
     toastr.error(error.message)
   }
 
@@ -222,7 +219,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   }
 
   const onPageChange = (page) => {
-    _logger("PAGE", page)
+    console.log("PAGE", page)
 
     setVideoData((prevState) => {
       let newPage = { ...prevState }
@@ -241,7 +238,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   }
 
   const handleDeleteVideo = (videoToBeDeleted) => {
-    _logger("DELETETARGET", videoToBeDeleted)
+    console.log("DELETETARGET", videoToBeDeleted)
     const sucessHandler = onDeleteVideoSuccess(videoToBeDeleted)
     videoService
       .deleteVideo(videoToBeDeleted)
@@ -250,7 +247,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
   };
 
   const onDeleteVideoSuccess = (response) => {
-    _logger("Success", response)
+    console.log("Success", response)
 
     setVideoData((prevState) => {
       const vd = { ...prevState }
@@ -262,7 +259,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
         }
         return result;
       })
-      _logger("Index found:", vd.paginatedVideos, indexOfId)
+      console.log("Index found:", vd.paginatedVideos, indexOfId)
       if (indexOfId >= 0) {
         vd.paginatedVideos.splice(indexOfId, 1);
         vd.videoList = vd.paginatedVideos.map(mapVideoList);
@@ -271,7 +268,7 @@ const TrainingVideoHomePage = ({ currentUser }) => {
     })
   }
   const onDeleteVideoError = (error) => {
-    _logger("Error", error)
+    console.log("Error", error)
     toastr.error(error.message)
   }
 
