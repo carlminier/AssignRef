@@ -1,11 +1,3 @@
-﻿USE [AssignRef]
-GO
-/****** Object:  StoredProcedure [dbo].[TrainingVideos_Search]    Script Date: 7/3/2023 8:35:37 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
 ALTER proc [dbo].[TrainingVideos_Search]
 					@PageIndex int,
 					@PageSize int,
