@@ -5,18 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
--- Author: Carl Minier
--- Create date: 7/03/2023
--- Description:[dbo].[TrainingVideosCategories_SelectAllVideos]
---			    
--- Code Reviewer: Sarorn Lin
--- MODIFIED BY: 
--- MODIFIED DATE:
--- Code Reviewer:
--- Note:
---
--- =============================================
+
 ALTER PROCEDURE [dbo].[TrainingVideosCategories_SelectAllVideos]
 						@ConferenceId INT
 AS
