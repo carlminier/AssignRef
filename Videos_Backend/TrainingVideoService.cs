@@ -1,29 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using Sabio.Data;
-using Sabio.Data.Providers;
-using Sabio.Models.Domain;
-using Sabio.Models.Domain.Seasons;
-using Sabio.Models.Domain.TrainingVideos;
-using Sabio.Models.Requests.TrainingVideos;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Sabio.Models;
-using Sabio.Services.Interfaces;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Sabio.Models.Domain.Conferences;
-using Sabio.Models.Domain.Venues;
-using Newtonsoft.Json;
-using Sabio.Models.Domain.Videos;
-
-namespace Sabio.Services
-{
-    public class TrainingVideoService : ITrainingVideoService
+public class TrainingVideoService : ITrainingVideoService
     {
         IDataProvider _data = null;
         ILookUpService _lookUpService = null;
