@@ -1,11 +1,3 @@
-﻿USE [AssignRef]
-GO
-/****** Object:  StoredProcedure [dbo].[TrainingVideos_SelectBy_ConferenceId_SeasonIdV2]    Script Date: 7/3/2023 8:34:36 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
 ALTER proc [dbo].[TrainingVideos_SelectBy_ConferenceId_SeasonIdV2]
 				@ConferenceId int,
 				@SeasonId int,
