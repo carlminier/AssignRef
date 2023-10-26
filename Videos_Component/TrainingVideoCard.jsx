@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function TrainingVideoCard({ card, deleteVideo, currentUser }) {
 
   const onVideoDelete = () => {
-    _logger("delete clicked", card)
+    console.log("delete clicked", card)
     deleteVideo(card.id)
   }
 
