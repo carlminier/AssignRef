@@ -1,11 +1,4 @@
-﻿using Sabio.Models;
-using Sabio.Models.Domain.TrainingVideos;
-using Sabio.Models.Requests.TrainingVideos;
-using System.Collections.Generic;
-
-namespace Sabio.Services.Interfaces
-{
-    public interface ITrainingVideoService
+public interface ITrainingVideoService
     {
         int Add(TrainingVideoAddRequest model, int userId);
         void Delete(int id);
