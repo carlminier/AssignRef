@@ -1,22 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Sabio.Models;
-using Sabio.Models.Domain.TrainingVideos;
-using Sabio.Models.Domain.Venues;
-using Sabio.Models.Requests.TrainingVideos;
-using Sabio.Services;
-using Sabio.Services.Interfaces;
-using Sabio.Web.Controllers;
-using Sabio.Web.Models.Responses;
-using System;
-using System.Collections.Generic;
-
-namespace Sabio.Web.Api.Controllers
-{
-    [Route("api/training/videos")]
-    [ApiController]
-    public class TrainingVideosApiController : BaseApiController
+[Route("api/training/videos")]
+[ApiController]
+public class TrainingVideosApiController : BaseApiController
     {
         private ITrainingVideoService _service = null;
         private IAuthenticationService<int> _authService = null;
