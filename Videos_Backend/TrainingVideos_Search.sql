@@ -5,19 +5,6 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
--- Author: Carl Minier
--- Create date: 6/17/2023
--- Description:[dbo].[TrainingVideos_Search]
---			    
--- Code Reviewer: 
--- MODIFIED BY: 
--- MODIFIED DATE:
--- Code Reviewer:
--- Note:
---
--- =============================================
-
 
 ALTER proc [dbo].[TrainingVideos_Search]
 					@PageIndex int,
@@ -64,7 +51,7 @@ BEGIN
 		  ,tv.[IsDeleted]
 		  ,tv.[CreatedBy]
 		  ,tv.[ModifiedBy]
-			,TotalCount = COUNT(1)OVER()
+		  ,TotalCount = COUNT(1)OVER()
 	FROM [dbo].[TrainingVideos] as tv
 		inner join dbo.Seasons as s 
 		on s.Id = tv.SeasonId
@@ -74,13 +61,6 @@ BEGIN
 		on c.Id = tv.ConferenceId
 	Where ((tv.IsDeleted = @isDeleted)
 			and (tv.[Title] LIKE '%' + @Query + '%')
-			--or (tv.[Subject] LIKE '%' + @Query + '%')
-			--or (tv.[MediaUrl] LIKE '%' + @Query + '%')
-			--or (vc.[Name] LIKE '%' + @Query + '%')
-			--or (s.[Name] LIKE '%' + @Query + '%')
-			--or (s.[Year] LIKE '%' + @Query + '%')
-			--or (c.[Name] LIKE '%' + @Query + '%')
-			--or (c.[Code] LIKE '%' + @Query + '%')
 			)
 	ORDER BY s.[Year] DESC
 	OFFSET @offset ROWS
